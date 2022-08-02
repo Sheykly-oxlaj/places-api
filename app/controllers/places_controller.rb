@@ -1,7 +1,7 @@
 class PlacesController < ApplicationController
   def index
     @places = Place.all
-    render template: "places/index"
+    render json: @places.as_json
   end
 
   def create
@@ -12,7 +12,7 @@ class PlacesController < ApplicationController
       image_url: params[:image_url],
     )
     if @place.save
-      render template: "places/show"
+      render json: @place.as_json
     else
       render json: { errors: @place.errors.full_messages }, status: :unprocessable_entity
     end
@@ -20,7 +20,7 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find(params[:id])
-    render template: "places/show"
+    render json: @place.as_json
   end
 
   def update
@@ -30,7 +30,7 @@ class PlacesController < ApplicationController
     @place.description = params[:description] || @place.description
     @place.image_url = params[:image_url] || @place.image_url
     if @place.save
-      render template: "places/show"
+      render json: @place.as_json
     else
       render json: { errors: @place.errors.full_messages }, status: :unprocessable_entity
     end
