@@ -7,9 +7,7 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(
       name: params[:name],
-      price: params[:price],
-      description: params[:description],
-      image_url: params[:image_url],
+      address: params[:address],
     )
     if @place.save
       render json: @place.as_json
@@ -26,9 +24,7 @@ class PlacesController < ApplicationController
   def update
     @place = Place.find(params[:id])
     @place.name = params[:name] || @place.name
-    @place.price = params[:price] || @place.price
-    @place.description = params[:description] || @place.description
-    @place.image_url = params[:image_url] || @place.image_url
+    @place.address = params[:address] || @place.address
     if @place.save
       render json: @place.as_json
     else
